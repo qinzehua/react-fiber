@@ -1,10 +1,21 @@
 export function setProps(dom, oldProps, newProps) {
   for (var prop in oldProps) {
+    if (prop !== "children") {
+      // eslint-disable-next-line no-prototype-builtins
+      if (newProps.hasOwnProperty(prop)) {
+        setProp(dom, prop, newProps[prop]);
+      } else {
+        dom.removeAttribute(prop);
+      }
+    }
   }
 
   for (var propName in newProps) {
     if (propName !== "children") {
-      setProp(dom, propName, newProps[propName]);
+      // eslint-disable-next-line no-prototype-builtins
+      if (!oldProps.hasOwnProperty(propName)) {
+        setProp(dom, propName, newProps[propName]);
+      }
     }
   }
 }

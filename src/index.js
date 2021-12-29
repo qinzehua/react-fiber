@@ -1,18 +1,24 @@
 import React from "./react";
-import ReactDOM from "./react-dom";
+import ReactDom from "./react-dom";
 
-let element = (
-  <div id="A">
-    A1
-    <div id="B1">
-      B1
-      <div id="C1">C1</div>
-      <div id="C2">C2</div>
+function reducer(state, action) {
+  switch (action.type) {
+    case "ADD":
+      return { count: state.count + 1 };
+    default:
+      return state;
+  }
+}
+
+function FuctionCom(props) {
+  const [state, dispatch] = React.useReducer(reducer, { count: 0 });
+
+  return (
+    <div>
+      <span>{state.count}</span>
+      <button onClick={() => dispatch({ type: "ADD" })}>+</button>
     </div>
-    <div id="B12">B2</div>
-  </div>
-);
+  );
+}
 
-console.log(element);
-
-ReactDOM.render(element, document.getElementById("root"));
+ReactDom.render(<FuctionCom />, document.getElementById("root"));
